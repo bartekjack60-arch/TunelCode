@@ -1,0 +1,79 @@
+AutoTunel MB 0.6.0 — raport weryfikacji
+Data: 2026-11-02T21:20:34+01:00 (Europe/Warsaw)
+Środowisko: Linux x64; .NET SDK 8.0.427.
+Aplikacja: net48 x64, wersja 0.6.0.0; 0 ostrzeżeń, 0 błędów.
+Testy: net8.0; 0 ostrzeżeń, 0 błędów.
+Punkt odniesienia: źródła oficjalnej paczki AutoTunel 0.5.0, 29 testów PASS.
+
+PASS USB/IP code carries exact device and rejects old or malformed codes
+PASS USB/IP state uses official JSON fields and excludes disconnected devices
+PASS USB/IP share releases only a binding created by this session
+PASS USB/IP preserves pre-existing shares and refuses busy or replaced devices
+PASS USB/IP attach is single-attempt and detach preserves unrelated devices
+PASS USB/IP failed attach rolls back only its own endpoint
+PASS USB/IP detects lost devices and recovers its saved endpoint
+PASS USB/IP import guard handles split headers and preserves payload bytes
+PASS USB/IP import guard rejects other devices, device lists and corrupt headers
+PASS USB/IP readiness probe parses packed device and interface records
+PASS USB/IP parser matches complete local endpoints and validates tool versions
+PASS Native command runner preserves argument boundaries without a shell
+PASS Native command runner enforces timeout on its own process
+PASS Settings keep both roles in one JSON through repeated path changes
+PASS Settings migrate both legacy paths including UTF8 BOM without changing recovery journals
+PASS Settings migration fills missing roles while preserving current values and unknown fields
+PASS Settings reject corrupt oversized and unsupported JSON without destroying originals
+PASS Settings reject invalid executable paths and incomplete migration atomically
+PASS Settings serialize concurrent updates from separate store instances
+PASS USB setup reuses healthy installations of both roles without reinstalling
+PASS USB setup prepares a clean server once and verifies readiness before success
+PASS USB setup persists client restart even when the installer returns zero
+PASS USB setup treats Windows reboot exit codes as pending rather than ready
+PASS USB setup retains a recovery marker after an installer failure
+PASS USB setup rejects a damaged package before any machine change
+PASS USB setup cancellation before installation leaves no staged package or machine change
+PASS USB setup preserves an incompatible existing installation
+PASS USB setup rolls back a reservation when cancelled just before installer launch
+PASS USB setup finishes an in-flight installation before honoring cancellation
+PASS USB setup does not report success when an installer leaves no usable tool
+PASS USB installers suppress automatic reboots and include the client runtime
+PASS USB payload rejects corruption, missing data and existing output without destroying files
+PASS USB gate rejects another device before forwarding
+PASS Session code version separates USB/IP from legacy sessions
+PASS Invitation round trip, invalid formats and secret comparison
+PASS Frame round trip across fragmented reads and coalesced frames
+PASS Reject oversized, negative and truncated frames
+PASS LAN TLS bidirectional bytes, broadcast and disconnect cleanup
+PASS Bad certificate pin and key rejected; server accepts later valid client
+PASS Mode mismatch rejected
+PASS USB Client consumes vehicle Server device, 4 streams / 2 MiB total
+PASS Stop while accepting releases port; cancelled start rejects
+RESULT: 42 tests passed.
+
+Weryfikacja rzeczywistego EXE:
+- Osadzony usbipd-win_5.3.0_x64.msi: SHA-256 zgodne z oficjalnym wydaniem.
+- Osadzony USBip-0.9.8.1-x64.exe: SHA-256 zgodne z oficjalnym wydaniem.
+- Osadzone metadane pakietów i teksty licencji zgodne bajtowo ze źródłami.
+- Osadzona instrukcja zgodna bajtowo z aktualną wersją INSTRUKCJA.html.
+- Wersja 0.6.0.0, bez DLL i .exe.config obok pliku wykonywalnego.
+- Nie modyfikowano oryginalnych pakietów i sterowników.
+EXE SHA-256: 4c7e84503d90596838caf8340c3d5ae6d7a38cef79e30346190f422a8a6f9111
+EXE rozmiar: 30752768 bajtów.
+
+Zakres testów:
+Rzeczywisty lokalny TCP/TLS z symulowanymi urządzeniami USB/IP; kontrolowane
+odpowiedzi CLI; logika konfiguracji, własności i odzyskiwania. Przygotowanie
+USB testowano z atrapami operacji systemowych (bez instalowania sterowników).
+
+Nie wykonano w tym środowisku:
+Instalacji na Windows, kontroli WMI/ACL i usługi na Windows, działania
+instalatorów/Visual C++/PnP, restartu, GUI/DPI, RadminVPN, fizycznego USB/ENET,
+Openporta i Xentry. Kompilacja i testy logiki nie zastępują tych prób.
+Scenariusz akceptacji: WINDOWS-TEST.md.
+
+Nowe zachowanie:
+Program zawiera pakiety USB obu ról i przygotowuje je automatycznie z EXE.
+Klient po pierwszej instalacji wymaga restartu; program nigdy nie restartuje
+komputera sam. Gotowe zgodne instalacje są używane bez ponownej instalacji.
+Inna lub niesprawna istniejąca instalacja jest zgłaszana do sprawdzenia.
+RadminVPN, .NET Framework 4.8 i sterownik interfejsu użytkownika są nadal wymagane.
+Tryb ENET nadal wymaga osobnego Npcap/TAP.

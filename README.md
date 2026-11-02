@@ -1,33 +1,33 @@
-# AutoTunel MB 0.5.0 — jeden EXE
+# AutoTunel MB 0.6.0 — USB w jednym EXE
 
 **[Pobierz AutoTunel.exe](downloads/AutoTunel.exe?raw=true)**
 
-[Pełna paczka ze źródłami i raportem testów](downloads/AutoTunel-MB-0.5.0.zip?raw=true)
+[Pełna paczka ze źródłami, licencjami i raportem](downloads/AutoTunel-MB-0.6.0.zip?raw=true)
 
-Na obu komputerach używaj tego samego EXE. Przy starcie wybierz:
+Na obu komputerach używaj tego samego EXE i wybierz rolę **Przy samochodzie**
+lub **Diagnosta**. Pakiety USB/IP są wbudowane w program. AutoTunel przygotowuje
+je automatycznie, bez osobnego pobierania i ręcznego uruchamiania instalatorów.
 
-- **Przy samochodzie (Server)** — komputer klienta z podłączonym interfejsem.
-- **Diagnosta (Client)** — Twój komputer z programem diagnostycznym.
+Przy samochodzie przygotowanie odbywa się przed wyświetleniem USB. U diagnosty
+przed pierwszym połączeniem lub przez **Ustawienia USB → Przygotuj USB**.
+Po pierwszym przygotowaniu klienta Windows wymaga restartu. Program pokaże
+komunikat; komputer nie restartuje się samodzielnie. Kolejne uruchomienia
+korzystają z gotowej obsługi. Działające zgodne instalacje z 0.5 są zachowane.
+Inna lub niesprawna istniejąca instalacja jest zgłaszana do sprawdzenia.
 
-Wersja 0.5 ma nowy układ okna, wybór roli i wspólne ustawienia.
-Instrukcja jest wbudowana w program. Nie wymaga osobnego pliku `.exe.config`.
-Ścieżki narzędzi obu ról są zapisane w `%LOCALAPPDATA%\AutoTunel-MB\settings.json`.
+Wymagane Windows 10 (od 1903)/11 x64, .NET Framework 4.8, administrator,
+RadminVPN i sterownik używanego interfejsu, np. Openporta. Zmiana dotyczy USB/IP;
+ENET nadal wymaga Npcap/TAP. Pomoc i licencje są wbudowane w EXE.
 
-Zgodnie z przyjętą konfiguracją program nie sprawdza stanu Zapory Windows
-ani nie tworzy i nie usuwa jej reguł. Działa przy założeniu wyłączonej zapory.
-Nie zmienia stanu zapory. Bez zapory usługa usbipd-win na TCP 3240 może być
-osiągalna z innych komputerów, poza kodem i tunelem TLS AutoTunel.
-Wymagana jest zaufana sieć; sam RadminVPN nie blokuje innych kart sieciowych.
+Kompilacja: 0 ostrzeżeń, 0 błędów. **42 testy PASS** oraz kontrola SHA-256
+obu oficjalnych pakietów zapisanych wewnątrz EXE. [Raport](TESTY.txt).
+Instalatory, sterowniki, restart, GUI i fizyczny Openport/Xentry wymagają
+jeszcze [próby na Windows](WINDOWS-TEST.md). EXE prototypu nie ma podpisu AutoTunel.
 
-Wymagania: Windows 10/11 x64, .NET Framework 4.8, RadminVPN oraz oddzielnie
-zainstalowane komponenty USB/IP: usbipd-win 5.3.0 przy samochodzie,
-usbip-win2 0.9.8.1 u diagnosty. Sterowniki nie są dołączone do EXE.
+Oficjalny instalator usbipd-win tworzy standardową regułę zapory. Program
+nie włącza ani nie wyłącza zapory. Bez zapory port USB/IP 3240 może być
+dostępny bez kodu AutoTunel; korzystaj z zaufanej sieci.
 
-Kompilacja: 0 ostrzeżeń, 0 błędów. Przeszło 29 testów transportu i logiki.
-Sprawdzono osadzenie instrukcji, biblioteki systemowe i brak plików towarzyszących EXE.
-Nie przeprowadzono jeszcze próby GUI ani rzeczywistego USB/ENET, Openporta i Xentry na Windows.
-Plik EXE prototypu nie ma podpisu wydawcy.
-
-Jeśli GitHub pokazuje 404, zaloguj się na konto mające dostęp do repozytorium.
-Na stronie pliku możesz użyć **Download raw file** lub **View raw**.
-Sumy kontrolne paczek: `downloads/SHA256SUMS.txt`.
+Sumy kontrolne: [SHA256SUMS.txt](downloads/SHA256SUMS.txt).
+Jeśli GitHub pokazuje 404, zaloguj się na konto z dostępem do prywatnego repozytorium.
+Na stronie pliku można wybrać **Download raw file** lub **View raw**.
