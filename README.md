@@ -1,23 +1,33 @@
-# AutoTunel MB 0.4.0 — paczka do testów Windows
+# AutoTunel MB 0.5.0 — jeden EXE
 
-Ta gałąź służy do pobrania przygotowanej paczki. ZIP zawiera aplikacje
-Client i Server, instrukcję, kod źródłowy i raport testów.
+**[Pobierz AutoTunel.exe](downloads/AutoTunel.exe?raw=true)**
 
-1. Otwórz `downloads/AutoTunel-MB-0.4.0-USBIP.zip`.
-2. Użyj przycisku pobierania pliku w GitHub.
-3. Rozpakuj ZIP i otwórz `INSTRUKCJA.html`.
+[Pełna paczka ze źródłami i raportem testów](downloads/AutoTunel-MB-0.5.0.zip?raw=true)
 
-Server uruchamia osoba przy samochodzie, a Client — diagnosta.
-Dla USB wymagane są oddzielnie instalowane usbipd-win 5.3.0 na komputerze
-przy samochodzie i usbip-win2 v.0.9.8.1 na komputerze diagnosty.
-Oba komputery muszą mieć łączność przez RadminVPN.
+Na obu komputerach używaj tego samego EXE. Przy starcie wybierz:
 
-Jest to prototyp: 23 testy transportu i logiki przeszły, oba pliki EXE
-skompilowano dla Windows x64. Nie wykonano jeszcze testu na dwóch
-fizycznych komputerach Windows z Openport 2.0 i Xentry. Pliki EXE
-AutoTunel nie mają podpisu wydawcy.
+- **Przy samochodzie (Server)** — komputer klienta z podłączonym interfejsem.
+- **Diagnosta (Client)** — Twój komputer z programem diagnostycznym.
 
-Szczegóły instalacji, wymagań i testów sprzętowych są w plikach
-`INSTRUKCJA.html`, `WINDOWS-TEST.md`, `TESTY.txt` oraz `THIRD-PARTY.txt` w ZIP.
+Wersja 0.5 ma nowy układ okna, wybór roli i wspólne ustawienia.
+Instrukcja jest wbudowana w program. Nie wymaga osobnego pliku `.exe.config`.
+Ścieżki narzędzi obu ról są zapisane w `%LOCALAPPDATA%\AutoTunel-MB\settings.json`.
 
-Sumę SHA-256 paczki zapisano obok w `downloads/SHA256SUMS.txt`.
+Zgodnie z przyjętą konfiguracją program nie sprawdza stanu Zapory Windows
+ani nie tworzy i nie usuwa jej reguł. Działa przy założeniu wyłączonej zapory.
+Nie zmienia stanu zapory. Bez zapory usługa usbipd-win na TCP 3240 może być
+osiągalna z innych komputerów, poza kodem i tunelem TLS AutoTunel.
+Wymagana jest zaufana sieć; sam RadminVPN nie blokuje innych kart sieciowych.
+
+Wymagania: Windows 10/11 x64, .NET Framework 4.8, RadminVPN oraz oddzielnie
+zainstalowane komponenty USB/IP: usbipd-win 5.3.0 przy samochodzie,
+usbip-win2 0.9.8.1 u diagnosty. Sterowniki nie są dołączone do EXE.
+
+Kompilacja: 0 ostrzeżeń, 0 błędów. Przeszło 29 testów transportu i logiki.
+Sprawdzono osadzenie instrukcji, biblioteki systemowe i brak plików towarzyszących EXE.
+Nie przeprowadzono jeszcze próby GUI ani rzeczywistego USB/ENET, Openporta i Xentry na Windows.
+Plik EXE prototypu nie ma podpisu wydawcy.
+
+Jeśli GitHub pokazuje 404, zaloguj się na konto mające dostęp do repozytorium.
+Na stronie pliku możesz użyć **Download raw file** lub **View raw**.
+Sumy kontrolne paczek: `downloads/SHA256SUMS.txt`.

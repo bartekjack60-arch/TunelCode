@@ -1,1 +1,2 @@
-b77ea00b493c06cf51216a32cebc2f92df7cd616f4aad221607bd04ba264210c  AutoTunel-MB-0.4.0-USBIP.zip
+2bead00bf232ca8e886bc43893f2565a9f56df44cfc3f4ab5f4442b66536f870  AutoTunel.exe
+c7c17bc545ba7cdb3f2ad04cd8ca68cb684236933b30fce5cdba3994ce1bbc9b  AutoTunel-MB-0.5.0.zip
