@@ -1,9 +1,7 @@
-AutoTunel MB 0.6.0 — raport weryfikacji
-Data: 2026-11-02T21:20:34+01:00 (Europe/Warsaw)
-Środowisko: Linux x64; .NET SDK 8.0.427.
-Aplikacja: net48 x64, wersja 0.6.0.0; 0 ostrzeżeń, 0 błędów.
+AutoTunel MB 0.7.0 — raport weryfikacji
+Data: 2026-11-02T22:11:57+01:00 (Europe/Warsaw)
+Kompilacja: .NET SDK 8.0.427, net48 x64; 0 ostrzeżeń, 0 błędów.
 Testy: net8.0; 0 ostrzeżeń, 0 błędów.
-Punkt odniesienia: źródła oficjalnej paczki AutoTunel 0.5.0, 29 testów PASS.
 
 PASS USB/IP code carries exact device and rejects old or malformed codes
 PASS USB/IP state uses official JSON fields and excludes disconnected devices
@@ -49,31 +47,30 @@ PASS USB Client consumes vehicle Server device, 4 streams / 2 MiB total
 PASS Stop while accepting releases port; cancelled start rejects
 RESULT: 42 tests passed.
 
-Weryfikacja rzeczywistego EXE:
-- Osadzony usbipd-win_5.3.0_x64.msi: SHA-256 zgodne z oficjalnym wydaniem.
-- Osadzony USBip-0.9.8.1-x64.exe: SHA-256 zgodne z oficjalnym wydaniem.
-- Osadzone metadane pakietów i teksty licencji zgodne bajtowo ze źródłami.
-- Osadzona instrukcja zgodna bajtowo z aktualną wersją INSTRUKCJA.html.
-- Wersja 0.6.0.0, bez DLL i .exe.config obok pliku wykonywalnego.
-- Nie modyfikowano oryginalnych pakietów i sterowników.
-EXE SHA-256: 4c7e84503d90596838caf8340c3d5ae6d7a38cef79e30346190f422a8a6f9111
-EXE rozmiar: 30752768 bajtów.
+Kontrola rzeczywistego EXE:
+- Wersja 0.7.0.0, AMD64, PE32+, podsystem Windows GUI.
+- W katalogu wynikowym jest dokładnie jeden plik: AutoTunel.exe.
+- Oba oficjalne pakiety USB/IP osadzone i zgodne z przypiętymi SHA-256.
+- Instrukcja, licencje, metadane USB, PNG i ICO zgodne bajtowo ze źródłami.
+- Natywne RT_GROUP_ICON/RT_ICON identyczne z ICO w rozmiarach 16/24/32/48/64/128/256.
+- Bez DLL, ikon, instrukcji lub config wymaganych obok EXE.
+EXE SHA-256: 9e2797c982f2597531d3e40e4cb95ca589058427a29aa93e4b34f15f7f7d6d39
+EXE rozmiar: 31207424 bajtów.
 
-Zakres testów:
-Rzeczywisty lokalny TCP/TLS z symulowanymi urządzeniami USB/IP; kontrolowane
-odpowiedzi CLI; logika konfiguracji, własności i odzyskiwania. Przygotowanie
-USB testowano z atrapami operacji systemowych (bez instalowania sterowników).
+Kontrola wyglądu:
+Uruchomiono rzeczywiste okna WinForms przez Mono/Xvfb na Linux, z bezpiecznym
+konstruktorem podglądu i przykładowymi danymi, bez uruchamiania sterowników.
+Sprawdzono wybór roli, Server i Client, kompaktowe 1024x740 i rozwinięte ustawienia
+oraz szczegóły. Przyciski i napisy mieszczą się w kontrolkach. Najnowszy EXE
+przeszedł ponowne przechwycenie Server 1180x900, Client 1024x740 oraz zbyt dużego
+okna 2200x1600, ograniczonego poprawnie do obszaru roboczego 1772x1372.
+Mono raportował 96 DPI. Nie jest to potwierdzenie wyglądu/skalowania na Windows.
 
-Nie wykonano w tym środowisku:
-Instalacji na Windows, kontroli WMI/ACL i usługi na Windows, działania
-instalatorów/Visual C++/PnP, restartu, GUI/DPI, RadminVPN, fizycznego USB/ENET,
-Openporta i Xentry. Kompilacja i testy logiki nie zastępują tych prób.
-Scenariusz akceptacji: WINDOWS-TEST.md.
+Testy transportu używają prawdziwego lokalnego TCP/TLS i symulowanych urządzeń;
+CLI i instalacja USB używają atrap. Transport, instalatory, ustawienia i własność
+USB zachowano względem 0.6. Zmieniono wygląd i zasoby aplikacji.
 
-Nowe zachowanie:
-Program zawiera pakiety USB obu ról i przygotowuje je automatycznie z EXE.
-Klient po pierwszej instalacji wymaga restartu; program nigdy nie restartuje
-komputera sam. Gotowe zgodne instalacje są używane bez ponownej instalacji.
-Inna lub niesprawna istniejąca instalacja jest zgłaszana do sprawdzenia.
-RadminVPN, .NET Framework 4.8 i sterownik interfejsu użytkownika są nadal wymagane.
-Tryb ENET nadal wymaga osobnego Npcap/TAP.
+Nie wykonano: instalatorów/sterowników/PnP/restartu na Windows, rzeczywistego
+RadminVPN, Openporta, ENET ani Xentry. Scenariusz: WINDOWS-TEST.md.
+Windows nadal wymaga .NET Framework 4.8, RadminVPN i sterownika interfejsu.
+Obsługa USB/IP jest przygotowywana automatycznie z EXE; ENET nadal wymaga Npcap/TAP.

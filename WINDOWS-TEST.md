@@ -1,4 +1,4 @@
-# Próba AutoTunel 0.6 na Windows
+# Próba AutoTunel 0.7 na Windows
 
 Wymagane Windows 10 (od 1903)/11 x64, .NET Framework 4.8 i administrator.
 Testy Linux nie uruchamiają instalatorów ani sterowników Windows.

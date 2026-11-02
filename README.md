@@ -1,33 +1,37 @@
-# AutoTunel MB 0.6.0 — USB w jednym EXE
+# AutoTunel MB 0.7.0 — jeden EXE, nowy wygląd
 
 **[Pobierz AutoTunel.exe](downloads/AutoTunel.exe?raw=true)**
 
-[Pełna paczka ze źródłami, licencjami i raportem](downloads/AutoTunel-MB-0.6.0.zip?raw=true)
+Ten sam plik uruchamiasz na obu komputerach. Wybierz rolę **Przy samochodzie**
+lub **Diagnosta**. Pakiety USB, ikona i instrukcja są wewnątrz EXE; nie trzeba
+kopiować dodatkowych DLL, ikon ani plików konfiguracyjnych obok programu.
 
-Na obu komputerach używaj tego samego EXE i wybierz rolę **Przy samochodzie**
-lub **Diagnosta**. Pakiety USB/IP są wbudowane w program. AutoTunel przygotowuje
-je automatycznie, bez osobnego pobierania i ręcznego uruchamiania instalatorów.
+Nowości: grafitowy motyw z turkusowymi akcentami, czytelniejsze karty i statusy,
+nowy wybór roli oraz ikona w oknach, pasku zadań i Eksploratorze Windows.
+Ikona jest osadzona w siedmiu rozmiarach od 16 do 256 pikseli.
 
-Przy samochodzie przygotowanie odbywa się przed wyświetleniem USB. U diagnosty
-przed pierwszym połączeniem lub przez **Ustawienia USB → Przygotuj USB**.
-Po pierwszym przygotowaniu klienta Windows wymaga restartu. Program pokaże
-komunikat; komputer nie restartuje się samodzielnie. Kolejne uruchomienia
-korzystają z gotowej obsługi. Działające zgodne instalacje z 0.5 są zachowane.
-Inna lub niesprawna istniejąca instalacja jest zgłaszana do sprawdzenia.
+![Podgląd AutoTunel](downloads/AutoTunel-0.7-preview.png)
 
-Wymagane Windows 10 (od 1903)/11 x64, .NET Framework 4.8, administrator,
-RadminVPN i sterownik używanego interfejsu, np. Openporta. Zmiana dotyczy USB/IP;
-ENET nadal wymaga Npcap/TAP. Pomoc i licencje są wbudowane w EXE.
+Podgląd rzeczywistego interfejsu uruchomionego przez Mono na Linux,
+z przykładowymi danymi. Nie jest to próba sprzętowa Openporta.
 
-Kompilacja: 0 ostrzeżeń, 0 błędów. **42 testy PASS** oraz kontrola SHA-256
-obu oficjalnych pakietów zapisanych wewnątrz EXE. [Raport](TESTY.txt).
-Instalatory, sterowniki, restart, GUI i fizyczny Openport/Xentry wymagają
-jeszcze [próby na Windows](WINDOWS-TEST.md). EXE prototypu nie ma podpisu AutoTunel.
+Obsługa USB/IP jest przygotowywana automatycznie z EXE. U diagnosty pierwsza
+instalacja wymaga restartu; program pokazuje komunikat i nie restartuje
+komputera samodzielnie. Wymagane: Windows 10 (od 1903)/11 x64, .NET Framework 4.8,
+administrator, RadminVPN i sterownik używanego interfejsu. ENET nadal wymaga Npcap/TAP.
 
-Oficjalny instalator usbipd-win tworzy standardową regułę zapory. Program
-nie włącza ani nie wyłącza zapory. Bez zapory port USB/IP 3240 może być
-dostępny bez kodu AutoTunel; korzystaj z zaufanej sieci.
+Kompilacja: 0 ostrzeżeń i 0 błędów; **42 testy PASS**, kontrola obu pakietów USB,
+wszystkich zasobów i natywnej ikony EXE. Sprawdzono też podgląd obu ról,
+mniejsze okno i ograniczanie rozmiaru do obszaru ekranu.
+[Raport testów](TESTY.txt). Instalacja sterowników i działanie ze sprzętem
+wymagają jeszcze [próby na Windows](WINDOWS-TEST.md).
 
-Sumy kontrolne: [SHA256SUMS.txt](downloads/SHA256SUMS.txt).
-Jeśli GitHub pokazuje 404, zaloguj się na konto z dostępem do prywatnego repozytorium.
-Na stronie pliku można wybrać **Download raw file** lub **View raw**.
+[Pełna paczka ze źródłami i licencjami](downloads/AutoTunel-MB-0.7.0.zip?raw=true)
+• [Sumy SHA-256](downloads/SHA256SUMS.txt)
+
+Oficjalny instalator usbipd-win tworzy standardową regułę zapory; program nie
+włącza ani nie wyłącza zapory. Bez zapory port 3240 może być dostępny poza
+kodem i TLS AutoTunel. Korzystaj z zaufanej sieci. EXE prototypu nie ma podpisu wydawcy.
+
+Repozytorium jest prywatne. Jeśli GitHub pokazuje 404, zaloguj się na konto
+z dostępem. Na stronie pliku wybierz **Download raw file** lub **View raw**.
