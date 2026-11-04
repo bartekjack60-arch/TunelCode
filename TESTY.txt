@@ -1,7 +1,7 @@
-AutoTunel MB 0.7.0 — raport weryfikacji
-Data: 2026-11-02T22:11:57+01:00 (Europe/Warsaw)
-Kompilacja: .NET SDK 8.0.427, net48 x64; 0 ostrzeżeń, 0 błędów.
-Testy: net8.0; 0 ostrzeżeń, 0 błędów.
+AutoTunel MB 0.8.0 — naprawa instalacji USB / LTSC
+Data: 2026-11-04T20:17:50+01:00 (Europe/Warsaw)
+Kompilacja: SDK 8.0.427, net48 x64, 0 ostrzeżeń, 0 błędów.
+Testy: net8.0, 0 ostrzeżeń, 0 błędów.
 
 PASS USB/IP code carries exact device and rejects old or malformed codes
 PASS USB/IP state uses official JSON fields and excludes disconnected devices
@@ -22,14 +22,22 @@ PASS Settings migration fills missing roles while preserving current values and 
 PASS Settings reject corrupt oversized and unsupported JSON without destroying originals
 PASS Settings reject invalid executable paths and incomplete migration atomically
 PASS Settings serialize concurrent updates from separate store instances
+PASS USB compatibility allows LTSC1809 server but requires1903 for client
+PASS USB setup reports unsupported Windows before stale markers or machine changes
+PASS USB version error identifies installed and required versions
 PASS USB setup reuses healthy installations of both roles without reinstalling
 PASS USB setup prepares a clean server once and verifies readiness before success
 PASS USB setup persists client restart even when the installer returns zero
 PASS USB setup treats Windows reboot exit codes as pending rather than ready
-PASS USB setup retains a recovery marker after an installer failure
+PASS USB setup does not turn definitive installer failures into restart loops
 PASS USB setup rejects a damaged package before any machine change
 PASS USB setup cancellation before installation leaves no staged package or machine change
 PASS USB setup preserves an incompatible existing installation
+PASS USB setup leaves incomplete installations untouched until explicit repair
+PASS USB setup checks active-device safety before staging an explicit repair
+PASS USB setup delegates explicit older-version upgrade eligibility to the host
+PASS USB setup launch failure releases unused reboot and staged-file reservations
+PASS USB setup retains uncertain in-flight state and never starts a second installer
 PASS USB setup rolls back a reservation when cancelled just before installer launch
 PASS USB setup finishes an in-flight installation before honoring cancellation
 PASS USB setup does not report success when an installer leaves no usable tool
@@ -45,32 +53,45 @@ PASS Bad certificate pin and key rejected; server accepts later valid client
 PASS Mode mismatch rejected
 PASS USB Client consumes vehicle Server device, 4 streams / 2 MiB total
 PASS Stop while accepting releases port; cancelled start rejects
-RESULT: 42 tests passed.
+RESULT: 50 tests passed.
 
-Kontrola rzeczywistego EXE:
-- Wersja 0.7.0.0, AMD64, PE32+, podsystem Windows GUI.
-- W katalogu wynikowym jest dokładnie jeden plik: AutoTunel.exe.
-- Oba oficjalne pakiety USB/IP osadzone i zgodne z przypiętymi SHA-256.
-- Instrukcja, licencje, metadane USB, PNG i ICO zgodne bajtowo ze źródłami.
-- Natywne RT_GROUP_ICON/RT_ICON identyczne z ICO w rozmiarach 16/24/32/48/64/128/256.
-- Bez DLL, ikon, instrukcji lub config wymaganych obok EXE.
-EXE SHA-256: 9e2797c982f2597531d3e40e4cb95ca589058427a29aa93e4b34f15f7f7d6d39
-EXE rozmiar: 31207424 bajtów.
+Weryfikacja EXE:
+- Windows GUI x64, PE32+, wersja 0.8.0.0.
+- W katalogu wynikowym jest dokładnie jeden plik AutoTunel.exe.
+- Oba oryginalne pakiety USB/IP osadzone, zgodne z oficjalnymi SHA-256.
+- Metadane, instrukcja, licencje, PNG i ICO zgodne bajtowo ze źródłami.
+- Wszystkie natywne rozmiary ikony 16/24/32/48/64/128/256 zgodne z ICO.
+EXE SHA-256: 72e879bac49cc96d4e59fb636992cf8bb6e5aea3a8365ba394e3b3d7b11b4ade
+Rozmiar EXE: 31231488 bajtów.
 
-Kontrola wyglądu:
-Uruchomiono rzeczywiste okna WinForms przez Mono/Xvfb na Linux, z bezpiecznym
-konstruktorem podglądu i przykładowymi danymi, bez uruchamiania sterowników.
-Sprawdzono wybór roli, Server i Client, kompaktowe 1024x740 i rozwinięte ustawienia
-oraz szczegóły. Przyciski i napisy mieszczą się w kontrolkach. Najnowszy EXE
-przeszedł ponowne przechwycenie Server 1180x900, Client 1024x740 oraz zbyt dużego
-okna 2200x1600, ograniczonego poprawnie do obszaru roboczego 1772x1372.
-Mono raportował 96 DPI. Nie jest to potwierdzenie wyglądu/skalowania na Windows.
+Poprawione zachowania:
+- Serwer: sprawdzenie minimum Windows 10 1809/17763 oraz natywnego x64.
+- Klient: sprawdzenie minimum Windows 10 1903/18362 przed instalacją.
+- Zarejestrowana ścieżka narzędzia ma pierwszeństwo przed dawnymi ustawieniami.
+- Wersje wykryta i wymagana są pokazane przy niezgodności.
+- Błędy zakończonego instalatora i jego uruchomienia nie fabrykują restartu.
+- Niepotwierdzony działający instalator i prawdziwy restart nadal są chronione.
+- Jawna naprawa lub aktualizacja rozpoznanej starszej rejestracji MSI; odmowa
+  przy aktywnych klientach, VirtualBox, własnym dzienniku, nieznanych/nowszych wersjach.
+- Przy starszej/brakującej CLI i działającej usłudze konieczne jest zakończenie
+  sesji i zatrzymanie USBIP Device Host w Usługach Windows przed naprawą.
+- Brak automatycznej aktualizacji niekompletnej zarejestrowanej instalacji.
+- Log Windows/wersji/kodów/wyjątków, zachowany dziennik MSI i fragment SetupAPI
+  dostępne przez Diagnostyka USB, również po ponownym otwarciu aplikacji.
+- Odzyskiwanie własnego USB bez instalacji i niezależnie od rezerwacji restartu.
 
-Testy transportu używają prawdziwego lokalnego TCP/TLS i symulowanych urządzeń;
-CLI i instalacja USB używają atrap. Transport, instalatory, ustawienia i własność
-USB zachowano względem 0.6. Zmieniono wygląd i zasoby aplikacji.
+Dowody wymagań serwera: oficjalne README i Directory.Build.props v5.3.0
+https://github.com/dorssel/usbipd-win/blob/v5.3.0/README.md
+https://github.com/dorssel/usbipd-win/blob/v5.3.0/Directory.Build.props
+Pakiety i podpisy nie są zmieniane; nie wyłączamy kontroli podpisów Windows.
 
-Nie wykonano: instalatorów/sterowników/PnP/restartu na Windows, rzeczywistego
-RadminVPN, Openporta, ENET ani Xentry. Scenariusz: WINDOWS-TEST.md.
-Windows nadal wymaga .NET Framework 4.8, RadminVPN i sterownika interfejsu.
-Obsługa USB/IP jest przygotowywana automatycznie z EXE; ENET nadal wymaga Npcap/TAP.
+Zakres: rzeczywisty lokalny TCP/TLS i symulowane urządzenia; kontrolowane
+odpowiedzi CLI i atrapy operacji instalacyjnych. Natywne RtlGetVersion,
+Windows Installer, usługi i sterowniki nie były uruchamiane w Linux.
+Podgląd GUI przez Mono/Xvfb z przykładowymi danymi: przycisk Napraw USB
+i rozszerzone ustawienia mieszczą się w oknie 1180x1050.
+
+Nie potwierdzono instalacji na komputerze użytkownika, dokładnego builda
+Windows ze zrzutu, konkretnej przyczyny błędu sterownika, fizycznego USB/ENET,
+Openporta ani Xentry. Sam napis o niedopasowanej wersji nie rozstrzyga przyczyny.
+Scenariusz próby i zbierania diagnostyki: WINDOWS-TEST.md.

@@ -1,6 +1,29 @@
-# Próba AutoTunel 0.7 na Windows
+# Regresja instalacji USB — Windows LTSC 2019
 
-Wymagane Windows 10 (od 1903)/11 x64, .NET Framework 4.8 i administrator.
+Na komputerze przy samochodzie sprawdź winver: oczekiwane minimum 1809/build17763
+i natywne x64. Zamknij poprzednią wersję. Uruchom nowy EXE i wybierz
+Przy samochodzie → Ustawienia USB → Napraw USB. Sprawdź brak aktywnych sesji
+USB i maszyn VirtualBox przed próbą.
+
+1. Czysty Windows 1809: automatyczne przygotowanie serwera, aktualny MSI 5.3.0.
+2. Zgodna instalacja z brakującą usługą/sterownikiem: jawna naprawa z MSI.
+3. Znana starsza zarejestrowana instalacja: jawna aktualizacja do 5.3.0, po
+   zakończeniu wszystkich sesji. Nowsza/niespójna wersja ma zostać zachowana.
+4. Niepowodzenie zakończone kodem 1603/1618/1633: oryginalny kod i zachowane
+   dzienniki, bez zmiany błędu w fikcyjną prośbę o restart.
+5. 3010/1641 lub sterownik oczekujący restartu: komunikat pozostaje prawidłowy.
+6. Niedokończony instalator: druga instalacja nie startuje; proces nie jest zabijany.
+7. Po ponownym uruchomieniu aplikacji Diagnostyka USB otwiera dzienniki.
+8. Aktywne inne USB/VirtualBox/własny dziennik: naprawa jest zablokowana bez
+   odłączania urządzeń. Odzyskiwanie istniejącego własnego USB działa bez reinstalacji.
+9. Diagnosta na tym samym Windows 1809: czytelny komunikat wymagań 1903,
+   bez uruchamiania niezgodnego instalatora.
+
+Poniżej zachowano scenariusz standardowy i próbę sprzętową.
+
+# Próba AutoTunel 0.8 na Windows
+
+Wymagane Windows 10/11 x64 (przy samochodzie: od 1809; diagnosta: od 1903), .NET Framework 4.8 i administrator.
 Testy Linux nie uruchamiają instalatorów ani sterowników Windows.
 
 ## Czysty system — bez ręcznej instalacji programów USB
