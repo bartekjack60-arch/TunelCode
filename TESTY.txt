@@ -1,7 +1,7 @@
-AutoTunel MB 0.8.0 — naprawa instalacji USB / LTSC
-Data: 2026-11-04T20:17:50+01:00 (Europe/Warsaw)
-Kompilacja: SDK 8.0.427, net48 x64, 0 ostrzeżeń, 0 błędów.
-Testy: net8.0, 0 ostrzeżeń, 0 błędów.
+AutoTunel MB 0.8.1 — poprawka błędu MSI 1639
+Data: 2026-11-06T19:05:12+01:00 (Europe/Warsaw)
+SDK 8.0.427, net48 x64: 0 ostrzeżeń, 0 błędów.
+Testy net8.0: 0 ostrzeżeń, 0 błędów.
 
 PASS USB/IP code carries exact device and rejects old or malformed codes
 PASS USB/IP state uses official JSON fields and excludes disconnected devices
@@ -42,6 +42,10 @@ PASS USB setup rolls back a reservation when cancelled just before installer lau
 PASS USB setup finishes an in-flight installation before honoring cancellation
 PASS USB setup does not report success when an installer leaves no usable tool
 PASS USB installers suppress automatic reboots and include the client runtime
+PASS MSI command line keeps switches and property names unquoted for install and repair
+PASS MSI command line preserves Unicode spaces and equals signs inside file paths
+PASS MSI command line rejects quote and control characters before launch
+PASS Client installer keeps conventional argument boundaries separate from MSI
 PASS USB payload rejects corruption, missing data and existing output without destroying files
 PASS USB gate rejects another device before forwarding
 PASS Session code version separates USB/IP from legacy sessions
@@ -53,45 +57,37 @@ PASS Bad certificate pin and key rejected; server accepts later valid client
 PASS Mode mismatch rejected
 PASS USB Client consumes vehicle Server device, 4 streams / 2 MiB total
 PASS Stop while accepting releases port; cancelled start rejects
-RESULT: 50 tests passed.
+RESULT: 54 tests passed.
 
-Weryfikacja EXE:
-- Windows GUI x64, PE32+, wersja 0.8.0.0.
-- W katalogu wynikowym jest dokładnie jeden plik AutoTunel.exe.
-- Oba oryginalne pakiety USB/IP osadzone, zgodne z oficjalnymi SHA-256.
-- Metadane, instrukcja, licencje, PNG i ICO zgodne bajtowo ze źródłami.
-- Wszystkie natywne rozmiary ikony 16/24/32/48/64/128/256 zgodne z ICO.
-EXE SHA-256: 72e879bac49cc96d4e59fb636992cf8bb6e5aea3a8365ba394e3b3d7b11b4ade
-Rozmiar EXE: 31231488 bajtów.
+Potwierdzona wada poprzedniej wersji:
+WindowsUsbSetupHost obejmował cudzysłowami wszystkie elementy polecenia,
+w tym /i, /qn oraz całe REBOOT=ReallySuppress. Windows Installer używa
+własnej składni. Kod 1639 oznacza ERROR_INVALID_COMMAND_LINE.
+Nowy test dokładnego końcowego polecenia zawiódł na starym formatowaniu;
+po poprawce przechodzą przypadki instalacji, naprawy, spacji, polskich
+znaków i znaku równości w ścieżce. Znaki sterujące i cudzysłowy w ścieżce
+są odrzucane przed startem. Format pozostałych narzędzi nie jest zmieniony.
 
-Poprawione zachowania:
-- Serwer: sprawdzenie minimum Windows 10 1809/17763 oraz natywnego x64.
-- Klient: sprawdzenie minimum Windows 10 1903/18362 przed instalacją.
-- Zarejestrowana ścieżka narzędzia ma pierwszeństwo przed dawnymi ustawieniami.
-- Wersje wykryta i wymagana są pokazane przy niezgodności.
-- Błędy zakończonego instalatora i jego uruchomienia nie fabrykują restartu.
-- Niepotwierdzony działający instalator i prawdziwy restart nadal są chronione.
-- Jawna naprawa lub aktualizacja rozpoznanej starszej rejestracji MSI; odmowa
-  przy aktywnych klientach, VirtualBox, własnym dzienniku, nieznanych/nowszych wersjach.
-- Przy starszej/brakującej CLI i działającej usłudze konieczne jest zakończenie
-  sesji i zatrzymanie USBIP Device Host w Usługach Windows przed naprawą.
-- Brak automatycznej aktualizacji niekompletnej zarejestrowanej instalacji.
-- Log Windows/wersji/kodów/wyjątków, zachowany dziennik MSI i fragment SetupAPI
-  dostępne przez Diagnostyka USB, również po ponownym otwarciu aplikacji.
-- Odzyskiwanie własnego USB bez instalacji i niezależnie od rezerwacji restartu.
+Nowy końcowy zapis MSI:
+/i "C:\USB setup\payload.msi" /qn /norestart REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable ADDLOCAL=Server,Drivers /L*V "C:\USB setup\install.log"
+Naprawa dopisuje REINSTALL=ALL REINSTALLMODE=amus.
+Ta sama zmienna commandLine jest zapisywana w diagnostyce i przekazywana
+do ProcessStartInfo.Arguments, bez kolejnego cytowania.
 
-Dowody wymagań serwera: oficjalne README i Directory.Build.props v5.3.0
-https://github.com/dorssel/usbipd-win/blob/v5.3.0/README.md
-https://github.com/dorssel/usbipd-win/blob/v5.3.0/Directory.Build.props
-Pakiety i podpisy nie są zmieniane; nie wyłączamy kontroli podpisów Windows.
+Kontrola EXE:
+Wersja 0.8.1.0; AMD64, PE32+, Windows GUI; dokładnie jeden plik wynikowy.
+Oba oficjalne pakiety USB osadzone z poprawnymi SHA-256.
+Instrukcja/licencje/metadane/PNG/ICO zgodne bajtowo ze źródłami.
+RT_GROUP_ICON/RT_ICON: 16/24/32/48/64/128/256 pikseli zgodne z ICO.
+EXE SHA-256: bdf02716a6b5794a5ab7017d5c9d08b22194b7c6876782a52a52a85f0d3c39e5
+Rozmiar: 31232512 bajtów.
 
-Zakres: rzeczywisty lokalny TCP/TLS i symulowane urządzenia; kontrolowane
-odpowiedzi CLI i atrapy operacji instalacyjnych. Natywne RtlGetVersion,
-Windows Installer, usługi i sterowniki nie były uruchamiane w Linux.
-Podgląd GUI przez Mono/Xvfb z przykładowymi danymi: przycisk Napraw USB
-i rozszerzone ustawienia mieszczą się w oknie 1180x1050.
+Źródła kontraktu:
+https://learn.microsoft.com/en-us/windows/win32/msi/command-line-options
+https://learn.microsoft.com/en-us/windows/win32/msi/error-codes
 
-Nie potwierdzono instalacji na komputerze użytkownika, dokładnego builda
-Windows ze zrzutu, konkretnej przyczyny błędu sterownika, fizycznego USB/ENET,
-Openporta ani Xentry. Sam napis o niedopasowanej wersji nie rozstrzyga przyczyny.
-Scenariusz próby i zbierania diagnostyki: WINDOWS-TEST.md.
+Testy wykonano w Linux. Test formatowania sprawdza rzeczywisty string
+użyty przez kod startujący proces, ale nie uruchamia natywnego msiexec.
+Nie wykonano instalacji sterownika na Windows użytkownika ani fizycznej
+próby Openporta/Xentry. Po poprawce trzeba ponowić instalację na Windows.
+Scenariusz akceptacji: WINDOWS-TEST.md.

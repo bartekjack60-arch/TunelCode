@@ -1,3 +1,14 @@
+# Regresja 0.8.1 — błąd instalatora 1639
+
+1. Zamknij 0.8 i uruchom nowy 0.8.1 jako administrator.
+2. Wybierz Przy samochodzie; w razie potrzeby Ustawienia USB → Napraw USB.
+3. W Diagnostyka USB sprawdź końcowe arguments= w usb-server-last.log:
+   /i i opcje są bez cudzysłowów, pliki w cudzysłowach, właściwości mają
+   postać REBOOT=ReallySuppress, a nie cytowane całe przypisanie.
+4. Sprawdź zniknięcie błędu 1639 i rzeczywisty wynik MSI (0/3010 lub inny kod).
+5. Wykonaj próbę ze spacjami i polskimi znakami w folderze ProgramData.
+6. Po potwierdzonej instalacji przejdź poniższy test USB/połączenia.
+
 # Regresja instalacji USB — Windows LTSC 2019
 
 Na komputerze przy samochodzie sprawdź winver: oczekiwane minimum 1809/build17763
