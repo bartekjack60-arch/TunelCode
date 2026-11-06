@@ -1,0 +1,35 @@
+AutoTunel MB 0.8 nie jest produktem autorów wymienionych komponentów.
+
+W EXE i pełnej paczce są niezmodyfikowane oficjalne instalatory:
+
+usbipd-win 5.3.0 x64 — usługa i sterowniki przy samochodzie
+Autor: Frans van Dorsselaer; GPL-3.0-only.
+https://github.com/dorssel/usbipd-win/tree/v5.3.0
+Plik: vendor/usb/usbipd-win_5.3.0_x64.msi
+Źródła: vendor/sources/usbipd-win-5.3.0-source.tar.gz
+Licencja: vendor/licenses/usbipd-win-GPL-3.0.txt
+Zawiera sterowniki Oracle VirtualBox 7.2.2 i informację o ofercie ich źródeł:
+vendor/licenses/VirtualBox-source-offer.md
+Źródła VirtualBox zgodnie z ofertą: https://download.virtualbox.org/virtualbox/
+
+usbip-win2 0.9.8.1 x64 — klient i sterowniki wirtualnego USB u diagnosty
+Autor: Vadym Hrynchyshyn; BSD-2-Clause.
+https://github.com/vadimgrn/usbip-win2/tree/v.0.9.8.1
+Plik: vendor/usb/USBip-0.9.8.1-x64.exe
+Źródła: vendor/sources/usbip-win2-0.9.8.1-source.tar.gz
+Licencja: vendor/licenses/usbip-win2-BSD-2-Clause.txt
+Oryginalny instalator zawiera Microsoft Visual C++ Redistributable,
+instalowany w ramach przygotowania na warunkach Microsoft.
+
+Sumy SHA-256 i oryginalne URL: vendor/usb/packages.json.
+Teksty licencji są również zasobem EXE: Ustawienia USB → Licencje składników USB.
+AutoTunel uruchamia komponenty jako odrębne programy przez CLI i USB/IP.
+Nie modyfikuje ani nie podpisuje ponownie ich instalatorów i sterowników.
+
+Osobne wymagania użytkowe, niedołączone:
+RadminVPN: https://www.radmin-vpn.com/
+Npcap (ENET): https://npcap.com/
+TAP-Windows6 (ENET): https://github.com/OpenVPN/tap-windows6/releases
+.NET Framework 4.8: https://dotnet.microsoft.com/download/dotnet-framework/net48
+Sterownik interfejsu J2534 i program diagnostyczny użytkownika.
+Xentry, DTS Monaco, Vediamo i VirtualHere nie są dołączone.

@@ -1,0 +1,22 @@
+[
+  {
+    "role": "server",
+    "version": "5.3.0",
+    "fileName": "usbipd-win_5.3.0_x64.msi",
+    "resourceName": "AutoTunel.Usb.Server.msi",
+    "sha256": "1c984914aec944de19b64eff232421439629699f8138e3ddc29301175bc6d938",
+    "url": "https://github.com/dorssel/usbipd-win/releases/download/v5.3.0/usbipd-win_5.3.0_x64.msi",
+    "sourceUrl": "https://github.com/dorssel/usbipd-win/tree/v5.3.0",
+    "license": "GPL-3.0-only"
+  },
+  {
+    "role": "client",
+    "version": "0.9.8.1",
+    "fileName": "USBip-0.9.8.1-x64.exe",
+    "resourceName": "AutoTunel.Usb.Client.exe",
+    "sha256": "38cad6d4432b52d5bb9409d9ad03b72fdffc4ada4cd3a48fbeca1a2752a8518a",
+    "url": "https://github.com/vadimgrn/usbip-win2/releases/download/v.0.9.8.1/USBip-0.9.8.1-x64.exe",
+    "sourceUrl": "https://github.com/vadimgrn/usbip-win2/tree/v.0.9.8.1",
+    "license": "BSD-2-Clause"
+  }
+]

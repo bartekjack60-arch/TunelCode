@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup>
+  <TargetFramework>net48</TargetFramework><OutputType>WinExe</OutputType>
+  <PlatformTarget>x64</PlatformTarget><LangVersion>latest</LangVersion>
+  <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  <AssemblyName>AutoTunel</AssemblyName>
+  <ApplicationManifest>app.manifest</ApplicationManifest>
+  <ApplicationIcon>AutoTunel.ico</ApplicationIcon>
+  <GenerateAssemblyInfo>true</GenerateAssemblyInfo><Version>0.8.1</Version>
+  <Product>AutoTunel MB</Product><Description>USB and ENET tunnel with runtime role selection</Description>
+  <GenerateSupportedRuntime>false</GenerateSupportedRuntime>
+  <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+  <GenerateBindingRedirectsOutputType>false</GenerateBindingRedirectsOutputType>
+  <DebugType>embedded</DebugType>
+ </PropertyGroup>
+ <ItemGroup>
+  <Compile Include="src/*.cs" />
+  <EmbeddedResource Include="../INSTRUKCJA.html" LogicalName="AutoTunel.Help.html" />
+  <EmbeddedResource Include="AutoTunel.ico" LogicalName="AutoTunel.Brand.ico" />
+  <EmbeddedResource Include="AutoTunel.png" LogicalName="AutoTunel.Brand.png" />
+  <EmbeddedResource Include="../vendor/usb/packages.json" LogicalName="AutoTunel.Usb.Packages.json" />
+  <EmbeddedResource Include="../vendor/usb/usbipd-win_5.3.0_x64.msi" LogicalName="AutoTunel.Usb.Server.msi" />
+  <EmbeddedResource Include="../vendor/usb/USBip-0.9.8.1-x64.exe" LogicalName="AutoTunel.Usb.Client.exe" />
+  <EmbeddedResource Include="../vendor/licenses/USB-NOTICES.txt" LogicalName="AutoTunel.Usb.Notices.txt" />
+  <Reference Include="System.Windows.Forms"/><Reference Include="System.Drawing"/>
+  <Reference Include="System.Runtime.Serialization"/>
+  <Reference Include="System.Management"/><Reference Include="System.ServiceProcess"/>
+  <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All"/>
+ </ItemGroup>
+</Project>

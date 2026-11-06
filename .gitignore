@@ -1,0 +1,11 @@
+# Local .NET build outputs and IDE state
+**/bin/
+**/obj/
+**/dist/
+.vs/
+*.user
+*.suo
+
+# Generated root copies created by packaging; published files live in downloads/
+/AutoTunel.exe
+/SHA256SUMS.txt

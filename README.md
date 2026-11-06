@@ -35,5 +35,17 @@ Diagnostyka USB otwiera zachowane dzienniki instalacji.
 Źródła składni: [Windows Installer](https://learn.microsoft.com/en-us/windows/win32/msi/command-line-options),
 [kody błędów](https://learn.microsoft.com/en-us/windows/win32/msi/error-codes).
 
-Repozytorium jest prywatne. W razie 404 zaloguj się na konto mające dostęp.
-Na stronie pliku wybierz **Download raw file** lub **View raw**.
+Na stronie pliku można wybrać **Download raw file** lub **View raw**.
+
+## Kod źródłowy i kompilacja
+
+Główna gałąź zawiera komplet źródeł wydania 0.8.1, pakiety USB i licencje.
+Gotowy pojedynczy EXE znajduje się w `downloads/AutoTunel.exe`.
+
+- Windows z .NET SDK 8: `powershell -File source/BUILD.ps1`.
+- Linux z .NET SDK 8 i Pythonem: `bash tools/build.sh`.
+- Wynik kompilacji: `source/dist/AutoTunel/AutoTunel.exe`.
+
+[Dokumentacja deweloperska](DEVELOPMENT.md) • [Instrukcja](INSTRUKCJA.html)
+
+Źródła i pliki vendor są zgodne z opublikowaną paczką 0.8.1.
